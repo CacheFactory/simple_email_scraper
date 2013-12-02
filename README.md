@@ -1,12 +1,10 @@
 simple_email_scraper
 ====================
 
-Give a url and get a list of email addresses.
+Simple command line tool to scrape email addresses from a website. Give it a url and get a list of email addresses. That's it. 
 
 ##Usage
 Execute email_finder.rb with the first argument being the url to scape from.
-
-That's it. Use the returned email addresses responsibly. 
 
 Run
 ```bash
