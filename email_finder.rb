@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require "open-uri"
 require 'rubygems' 
-require 'bundler/setup'  # require your gems as usual require 'nokogiri'
+require 'bundler/setup' 
 require 'httparty'
 require 'nokogiri'
 require 'pry'
@@ -9,7 +9,6 @@ require 'pry'
 class EmailFinder
   DEEPNESS=4
   EMAIL_REGEX =/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
-  #HREF_REXEX = /href="([^"]*)"/
 
   def self.download_email_addresses_from_url url
     uri = URI url
@@ -56,7 +55,7 @@ class EmailFinder
             self.parse_page_for_emails new_uri, emails, hrefs, deepness+1
             
           rescue
-            
+            puts "error parsing #{href_match}"
           end
         end
       end
