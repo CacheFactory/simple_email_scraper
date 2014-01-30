@@ -32,10 +32,15 @@ class EmailFinder
       end
 
       doc.search('a').each do |element|
-        href_match= element.attributes['href'].value
+
+        if element.attributes && element.attributes['href']
+          href_match= element.attributes['href'].value 
+        else
+          next
+        end
   
         if href_match[0,1]=='/'
-          new_path ="#{uri.scheme}://#{uri.host}/#{href_match}" 
+          new_path ="#{uri.scheme}://#{uri.host}#{href_match}" 
         elsif !href_match.match('http') 
 
           folder_array = uri.path.split('/')
@@ -47,13 +52,11 @@ class EmailFinder
           new_path=href_match
         end
 
-
         new_uri = URI new_path
         if !hrefs.include?(href_match) && uri.host  == new_uri.host && deepness < EmailFinder::DEEPNESS
           begin
             hrefs << href_match
             self.parse_page_for_emails new_uri, emails, hrefs, deepness+1
-            
           rescue
             puts "error parsing #{href_match}"
           end
